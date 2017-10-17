@@ -1,0 +1,10 @@
+// Settings
+@import 'settings_color';
+
+// Import vanilla brochure theme
+@import 'vanilla-brochure-theme/scss/theme';
+@include vanilla-brochure-theme;
+
+// USN patterns
+@import 'patterns_navigation';
+@include usn-p-navigation;

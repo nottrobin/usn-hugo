@@ -1,0 +1,16 @@
+@mixin usn-p-navigation {
+  .p-navigation {
+    background-color: $color-brand;
+    font-weight: 400;
+    margin-bottom: 0;
+
+    @media (max-width: $breakpoint-medium) {
+      border-bottom: 1px solid $color-light;
+      font-weight: 300;
+    }
+
+    &__logo {
+      margin: .5rem;
+    }
+  }
+}
