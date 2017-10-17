@@ -1,0 +1,9 @@
+{{ define "main" }}
+<p>series.html</p>
+<h1>USNs</h1>
+  {{ range .Data.Pages }}
+    <article>
+      <h2><a href="{{.Permalink}}">{{ .Title }}</a></h2>
+    </article>
+  {{ end }}
+{{ end }}
