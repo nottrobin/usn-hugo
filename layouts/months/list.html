@@ -1,0 +1,33 @@
+{{ define "main" }}
+  <div class="p-strip">
+    <div class="row">
+      <div class="col-10">
+        <h1>USNs by month</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-8">
+        {{ range .Site.Pages.GroupByDate "January 2006" }}
+          <h3 id="{{ .Key | urlize }}">{{ .Key }}</h3>
+          <ul>
+            {{ range first 8 .Pages.ByDate.Reverse }}
+              <li><a href="{{ .Permalink }}"> {{ .Title }} </a>  &mdash; {{ .Date.Format "2nd January 2006" }}</li>
+            {{ end}}
+          </ul>
+        {{ end }}
+      </div>
+
+      <div class="col-4">
+        <h3>Months</h3>
+
+        <ul>
+          {{ range .Site.Pages.GroupByDate "January 2006" }}
+            <li>
+              <a href="#{{ .Key | urlize }}">{{ .Key }}</a>
+            </li>
+          {{ end }}
+        </ul>
+      </div>
+    </div>
+  </div>
+{{ end }}
