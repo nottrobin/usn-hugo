@@ -13,7 +13,7 @@
         {{ range .Data.Pages.ByDate.Reverse }}
         <h3 class="p-heading--four"><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
         <p>{{ .Description | markdownify }}</p>
-        <p>{{ .Date.Format "2nd January 2006" }} | {{ delimit ( .Param "releases" ) ", " }}</p>
+        <p>{{ .Date.Format "2nd January 2006" }}</p>
         {{ end }}
       </div>
       <div class="col-4 prefix-1">
