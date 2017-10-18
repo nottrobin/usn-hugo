@@ -1,10 +1,38 @@
 {{ define "main" }}
-<p>series.terms.html</p>
-<h1>USNs</h1>
-<ul>
-  {{ $data := .Data }}
-  {{ range $key, $value := .Data.Terms.Alphabetical }}
-  <li><a href="{{ $.Site.LanguagePrefix }}/{{ $data.Plural }}/{{ $value.Name | urlize }}"> {{ $value.Name }} </a> {{ $value.Count }} </li>
-  {{ end }}
-</ul>
+<div class="p-strip">
+  <div class="row">
+    <div class="col-10">
+      <h1>USNs by release</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8">
+      {{ range .Site.Taxonomies.releases.Alphabetical.Reverse }}
+        {{ $parts := split .Term "-" }}
+        <h3>
+          <a href='/releases/{{ .Term | urlize }}'>
+            <span style="text-transform: capitalize">{{ index $parts 0 }}</span>
+            {{ if ( hasPrefix ( index $parts 1 ) "0" ) }}{{ slicestr (index $parts 1) 1 }}{{ else }}{{ index $parts 1 }}{{ end }}
+            {{ if ( gt $parts 2 ) }}{{ upper ( index $parts 2 ) }}{{ end }}
+          </a>
+        </h3>
+        <ul>
+          {{ range first 8 .Pages.ByDate.Reverse }}
+            <li><a href="{{ .Permalink }}">{{ .Title }}</a>  &mdash; {{ .Date.Format "2nd January 2006" }}</li>
+          {{ end}}
+        </ul>
+      {{ end }}
+    </div>
+
+    <div class="col-4">
+      <h3>USNs by month</h3>
+
+      <ul>
+        {{ range $value := .Site.Pages.GroupByDate "January 2006" }}
+          <li><a href="/months/#{{ .Key | urlize }}">{{ .Key }}</a></li>
+        {{ end }}
+      </ul>
+    </div>
+  </div>
+</div>
 {{ end }}

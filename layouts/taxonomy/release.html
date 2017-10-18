@@ -1,9 +1,36 @@
 {{ define "main" }}
-<p>series.html</p>
-<h1>USNs</h1>
-  {{ range .Data.Pages }}
-    <article>
-      <h2><a href="{{.Permalink}}">{{ .Title }}</a></h2>
-    </article>
-  {{ end }}
+  <div class="p-strip">
+    <div class="row">
+      <div class="col-8">
+        {{ $parts := split .Data.Term "-" }}
+        <h2>
+          USNs for
+          <span style="text-transform: capitalize">{{ index $parts 0 }}</span>
+          {{ if ( hasPrefix ( index $parts 1 ) "0" ) }}{{ slicestr (index $parts 1) 1 }}{{ else }}{{ index $parts 1 }}{{ end }}
+          {{ if ( gt $parts 2 ) }}{{ upper ( index $parts 2 ) }}{{ end }}
+        </h2>
+
+        {{ range .Data.Pages.ByDate.Reverse }}
+        <h3 class="p-heading--four"><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+        <p>{{ .Description | markdownify }}</p>
+        <p>{{ .Date.Format "2nd January 2006" }} | {{ delimit ( .Param "releases" ) ", " }}</p>
+        {{ end }}
+      </div>
+      <div class="col-4 prefix-1">
+        <h2 class="p-heading--three">Releases</h2>
+        <ul class="p-list">
+          {{ range .Site.Taxonomies.releases.Alphabetical.Reverse }}
+            {{ $parts := split .Term "-" }}
+            <li class="p-list__item is-ticked">
+              <a href='/releases/{{ .Term | urlize }}'>
+                <span style="text-transform: capitalize">{{ index $parts 0 }}</span>
+                {{ if ( hasPrefix ( index $parts 1 ) "0" ) }}{{ slicestr (index $parts 1) 1 }}{{ else }}{{ index $parts 1 }}{{ end }}
+                {{ if ( gt $parts 2 ) }}{{ upper ( index $parts 2 ) }}{{ end }}
+              </a>
+            </li>
+          {{ end }}
+        </ul>
+      </div>
+    </div>
+  </div>
 {{ end }}

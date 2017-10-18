@@ -1,4 +1,18 @@
 {{ define "main" }}
-  <h1>{{.Title}}</h1>
-  {{.Content}}
+  <div class="p-strip">
+    <div class="row">
+      <div class="col-12">
+        <h1>{{ .Title }}</h1>
+      </div><!-- /.12-col -->
+    </div><!-- /.row -->
+  </div><!-- /.p-strip -->
+
+  <div class="p-strip">
+    <div class="row">
+      <div class="col-8">
+        <p><em>{{ .Date.Format "2nd January 2006" }}</em></p>
+        {{ .Content }}
+      </div><!-- /.8-col -->
+    </div><!-- /.p-strip -->
+  </div><!-- /.row -->
 {{ end }}

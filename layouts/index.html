@@ -16,20 +16,20 @@
       <div class="col-8">
         <h2>Latest notices</h2>
         <!-- eight main stories -->
-        {{ range first 8 .Data.Pages }}
+        {{ range first 8 .Data.Pages.ByDate.Reverse }}
         <h3 class="p-heading--four"><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
-        {{ .Description | markdownify }}
-        <p>{{ .Date.Format "2nd January 2006" }} | {{ delimit .Params.releases ", " }}</p>
+        <p>{{ .Description | markdownify }}</p>
+        <p>{{ .Date.Format "2nd January 2006" }} | {{ delimit ( .Param "releases" ) ", " }}</p>
         {{ end }}
         <!-- /end eight main stories -->
       </div>
       <div class="col-4 prefix-1">
-        <h2 class="p-heading--three">By release</h2>
+        <h2 class="p-heading--three">Releases</h2>
         <ul class="p-list">
           {{ range .Site.Taxonomies.releases.Alphabetical.Reverse }}
             {{ $parts := split .Term "-" }}
             <li class="p-list__item is-ticked">
-              <a href='/releases/{{ . }}'>
+              <a href='/releases/{{ .Term | urlize }}'>
                 <span style="text-transform: capitalize">{{ index $parts 0 }}</span>
                 {{ if ( hasPrefix ( index $parts 1 ) "0" ) }}{{ slicestr (index $parts 1) 1 }}{{ else }}{{ index $parts 1 }}{{ end }}
                 {{ if ( gt $parts 2 ) }}{{ upper ( index $parts 2 ) }}{{ end }}
